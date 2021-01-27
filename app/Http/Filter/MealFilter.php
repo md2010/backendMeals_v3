@@ -16,13 +16,15 @@ class MealFilter extends QueryFilter
         $this->request = $request;
         parent::__construct($request);
     }
-  
+ 
     public function category($term) 
     {
-        if ($term == NULL) { //in query string-> category=
+        if ($term == 'NULL' || $term == NULL) { // in query string:  category=NULL or category=
             return $this->builder->where('meals.category_id', NULL);
-        } else 
-        return $this->builder->where('meals.category_id', 'LIKE',  $term);
+        } else if ($term == '!NULL')             // in query string:  category=!NULL 
+            return $this->builder->has('category');
+        else                                    // // in query string:  category=integer
+            return $this->builder->where('meals.category_id', 'LIKE',  $term);
     }
   
     public function tags($term) 
