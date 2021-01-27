@@ -19,7 +19,7 @@ class MealFilter extends QueryFilter
   
     public function category($term) 
     {
-        if ($term == NULL) {
+        if ($term == NULL) { //in query string-> category=
             return $this->builder->where('meals.category_id', NULL);
         } else 
         return $this->builder->where('meals.category_id', 'LIKE',  $term);
